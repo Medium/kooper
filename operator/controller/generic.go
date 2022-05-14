@@ -14,11 +14,11 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
 
-	"github.com/spotahome/kooper/log"
-	"github.com/spotahome/kooper/monitoring/metrics"
-	"github.com/spotahome/kooper/operator/controller/leaderelection"
-	"github.com/spotahome/kooper/operator/handler"
-	"github.com/spotahome/kooper/operator/retrieve"
+	"github.com/Medium/kooper/log"
+	"github.com/Medium/kooper/monitoring/metrics"
+	"github.com/Medium/kooper/operator/controller/leaderelection"
+	"github.com/Medium/kooper/operator/handler"
+	"github.com/Medium/kooper/operator/retrieve"
 )
 
 // Span tag and log keys.

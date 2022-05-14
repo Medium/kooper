@@ -176,8 +176,8 @@ The starting point would be to check the [concepts](docs/concepts.md) and then c
 - [node-labeler-operator](https://github.com/barpilot/node-labeler-operator)
 - [source-ranges-controller](https://github.com/jeffersongirao/source-ranges-controller)
 
-[travis-image]: https://travis-ci.org/spotahome/kooper.svg?branch=master
-[travis-url]: https://travis-ci.org/spotahome/kooper
+[travis-image]: https://travis-ci.org/Medium/kooper.svg?branch=master
+[travis-url]: https://travis-ci.org/Medium/kooper
 [goreport-image]: https://goreportcard.com/badge/github.com/Medium/kooper
 [goreport-url]: https://goreportcard.com/report/github.com/Medium/kooper
 [godoc-image]: https://godoc.org/github.com/Medium/kooper?status.svg

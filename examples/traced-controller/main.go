@@ -25,10 +25,10 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/util/homedir"
 
-	"github.com/spotahome/kooper/log"
-	"github.com/spotahome/kooper/operator/controller"
-	"github.com/spotahome/kooper/operator/handler"
-	"github.com/spotahome/kooper/operator/retrieve"
+	"github.com/Medium/kooper/log"
+	"github.com/Medium/kooper/operator/controller"
+	"github.com/Medium/kooper/operator/handler"
+	"github.com/Medium/kooper/operator/retrieve"
 )
 
 // Important. Run a jaeger development instance to see the traces.

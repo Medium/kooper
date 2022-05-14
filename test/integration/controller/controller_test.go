@@ -17,12 +17,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/spotahome/kooper/log"
-	"github.com/spotahome/kooper/operator/controller"
-	"github.com/spotahome/kooper/operator/handler"
-	"github.com/spotahome/kooper/operator/retrieve"
-	"github.com/spotahome/kooper/test/integration/helper/cli"
-	"github.com/spotahome/kooper/test/integration/helper/prepare"
+	"github.com/Medium/kooper/log"
+	"github.com/Medium/kooper/operator/controller"
+	"github.com/Medium/kooper/operator/handler"
+	"github.com/Medium/kooper/operator/retrieve"
+	"github.com/Medium/kooper/test/integration/helper/cli"
+	"github.com/Medium/kooper/test/integration/helper/prepare"
 )
 
 // TestControllerHandleEvents will test the controller receives the resources list and watch

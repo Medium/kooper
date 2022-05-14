@@ -16,11 +16,11 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/spotahome/kooper/log"
-	"github.com/spotahome/kooper/monitoring/metrics"
-	"github.com/spotahome/kooper/operator/controller"
-	"github.com/spotahome/kooper/operator/handler"
-	"github.com/spotahome/kooper/operator/retrieve"
+	"github.com/Medium/kooper/log"
+	"github.com/Medium/kooper/monitoring/metrics"
+	"github.com/Medium/kooper/operator/controller"
+	"github.com/Medium/kooper/operator/handler"
+	"github.com/Medium/kooper/operator/retrieve"
 )
 
 const (
