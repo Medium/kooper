@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"context"
 	"time"
 
 	v1alpha1 "github.com/spotahome/kooper/test/integration/operator/apis/superhero/v1alpha1"
@@ -64,19 +65,21 @@ func newSpidermans(c *SuperheroV1alpha1Client, namespace string) *spidermans {
 
 // Get takes name of the spiderman, and returns the corresponding spiderman object, and an error if there is any.
 func (c *spidermans) Get(name string, options v1.GetOptions) (result *v1alpha1.Spiderman, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.Spiderman{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("spidermans").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of Spidermans that match those selectors.
 func (c *spidermans) List(opts v1.ListOptions) (result *v1alpha1.SpidermanList, err error) {
+	ctx := context.Background()
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -87,13 +90,14 @@ func (c *spidermans) List(opts v1.ListOptions) (result *v1alpha1.SpidermanList, 
 		Resource("spidermans").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested spidermans.
 func (c *spidermans) Watch(opts v1.ListOptions) (watch.Interface, error) {
+	ctx := context.Background()
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -104,47 +108,51 @@ func (c *spidermans) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("spidermans").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(ctx)
 }
 
 // Create takes the representation of a spiderman and creates it.  Returns the server's representation of the spiderman, and an error, if there is any.
 func (c *spidermans) Create(spiderman *v1alpha1.Spiderman) (result *v1alpha1.Spiderman, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.Spiderman{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("spidermans").
 		Body(spiderman).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Update takes the representation of a spiderman and updates it. Returns the server's representation of the spiderman, and an error, if there is any.
 func (c *spidermans) Update(spiderman *v1alpha1.Spiderman) (result *v1alpha1.Spiderman, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.Spiderman{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("spidermans").
 		Name(spiderman.Name).
 		Body(spiderman).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Delete takes name of the spiderman and deletes it. Returns an error if one occurs.
 func (c *spidermans) Delete(name string, options *v1.DeleteOptions) error {
+	ctx := context.Background()
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("spidermans").
 		Name(name).
 		Body(options).
-		Do().
+		Do(ctx).
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *spidermans) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	ctx := context.Background()
 	var timeout time.Duration
 	if listOptions.TimeoutSeconds != nil {
 		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
@@ -155,12 +163,13 @@ func (c *spidermans) DeleteCollection(options *v1.DeleteOptions, listOptions v1.
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do().
+		Do(ctx).
 		Error()
 }
 
 // Patch applies the patch and returns the patched spiderman.
 func (c *spidermans) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Spiderman, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.Spiderman{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
@@ -168,7 +177,7 @@ func (c *spidermans) Patch(name string, pt types.PatchType, data []byte, subreso
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }

@@ -218,6 +218,7 @@ func TestPodKillerPodKill(t *testing.T) {
 						gotDeletions++
 					}
 				}
+
 				assert.Equal(test.expDeletions, gotDeletions)
 			}
 		})

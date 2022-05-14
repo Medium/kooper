@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"context"
+
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -25,13 +27,13 @@ func NewPodRetrieve(namespace string, client kubernetes.Interface) *PodRetrieve 
 
 // GetListerWatcher knows how to return a listerWatcher of a pod.
 func (p *PodRetrieve) GetListerWatcher() cache.ListerWatcher {
-
+	ctx := context.Background()
 	return &cache.ListWatch{
 		ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-			return p.client.CoreV1().Pods(p.namespace).List(options)
+			return p.client.CoreV1().Pods(p.namespace).List(ctx, options)
 		},
 		WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
-			return p.client.CoreV1().Pods(p.namespace).Watch(options)
+			return p.client.CoreV1().Pods(p.namespace).Watch(ctx, options)
 		},
 	}
 }

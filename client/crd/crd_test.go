@@ -18,9 +18,9 @@ import (
 	fakediscovery "k8s.io/client-go/discovery/fake"
 	kubetesting "k8s.io/client-go/testing"
 
-	"github.com/spotahome/kooper/client/crd"
-	"github.com/spotahome/kooper/log"
-	mtime "github.com/spotahome/kooper/mocks/wrapper/time"
+	"github.com/Medium/kooper/client/crd"
+	"github.com/Medium/kooper/log"
+	mtime "github.com/Medium/kooper/mocks/wrapper/time"
 )
 
 var (

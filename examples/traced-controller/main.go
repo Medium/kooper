@@ -66,7 +66,7 @@ func NewFlags() *Flags {
 func Main() error {
 	// Flags
 	fl := NewFlags()
-
+	ctx := context.Background()
 	// Initialize logger.
 	logger := &log.Std{}
 
@@ -118,10 +118,10 @@ func Main() error {
 		Object: &corev1.Pod{},
 		ListerWatcher: &cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-				return k8scli.CoreV1().Pods("").List(options)
+				return k8scli.CoreV1().Pods("").List(ctx, options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
-				return k8scli.CoreV1().Pods("").Watch(options)
+				return k8scli.CoreV1().Pods("").Watch(ctx, options)
 			},
 		},
 	}

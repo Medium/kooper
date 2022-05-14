@@ -1,7 +1,7 @@
 package log
 
 import (
-	"github.com/spotahome/kooper/log"
+	"github.com/Medium/kooper/log"
 )
 
 // Logger is the interface of the controller logger. This is an example

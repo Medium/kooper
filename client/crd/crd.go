@@ -1,6 +1,7 @@
 package crd
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -10,8 +11,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubeversion "k8s.io/apimachinery/pkg/util/version"
 
-	"github.com/spotahome/kooper/log"
-	wraptime "github.com/spotahome/kooper/wrapper/time"
+	"github.com/Medium/kooper/log"
+	wraptime "github.com/Medium/kooper/wrapper/time"
 )
 
 const (
@@ -102,6 +103,7 @@ func NewCustomClient(aeClient apiextensionscli.Interface, time wraptime.Time, lo
 
 // EnsurePresent satisfies crd.Interface.
 func (c *Client) EnsurePresent(conf Conf) error {
+	ctx := context.Background()
 	if err := c.validClusterForCRDs(); err != nil {
 		return err
 	}
@@ -130,7 +132,7 @@ func (c *Client) EnsurePresent(conf Conf) error {
 		},
 	}
 
-	_, err := c.aeClient.ApiextensionsV1beta1().CustomResourceDefinitions().Create(crd)
+	_, err := c.aeClient.ApiextensionsV1beta1().CustomResourceDefinitions().Create(ctx, crd, metav1.CreateOptions{})
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
 			return fmt.Errorf("error creating crd %s: %s", crdName, err)
@@ -167,6 +169,7 @@ func (c *Client) createSubresources(conf Conf) *apiextensionsv1beta1.CustomResou
 
 // WaitToBePresent satisfies crd.Interface.
 func (c *Client) WaitToBePresent(name string, timeout time.Duration) error {
+	ctx := context.Background()
 	if err := c.validClusterForCRDs(); err != nil {
 		return err
 	}
@@ -177,7 +180,7 @@ func (c *Client) WaitToBePresent(name string, timeout time.Duration) error {
 	for {
 		select {
 		case <-t.C:
-			_, err := c.aeClient.ApiextensionsV1beta1().CustomResourceDefinitions().Get(name, metav1.GetOptions{})
+			_, err := c.aeClient.ApiextensionsV1beta1().CustomResourceDefinitions().Get(ctx, name, metav1.GetOptions{})
 			// Is present, finish.
 			if err == nil {
 				return nil
@@ -190,11 +193,12 @@ func (c *Client) WaitToBePresent(name string, timeout time.Duration) error {
 
 // Delete satisfies crd.Interface.
 func (c *Client) Delete(name string) error {
+	ctx := context.Background()
 	if err := c.validClusterForCRDs(); err != nil {
 		return err
 	}
 
-	return c.aeClient.ApiextensionsV1beta1().CustomResourceDefinitions().Delete(name, &metav1.DeleteOptions{})
+	return c.aeClient.ApiextensionsV1beta1().CustomResourceDefinitions().Delete(ctx, name, metav1.DeleteOptions{})
 }
 
 // validClusterForCRDs returns nil if cluster is ok to be used for CRDs, otherwise error.

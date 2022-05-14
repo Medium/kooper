@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"context"
 	"time"
 
 	v1alpha1 "github.com/spotahome/kooper/examples/pod-terminator-operator/apis/chaos/v1alpha1"
@@ -62,18 +63,20 @@ func newPodTerminators(c *ChaosV1alpha1Client) *podTerminators {
 
 // Get takes name of the podTerminator, and returns the corresponding podTerminator object, and an error if there is any.
 func (c *podTerminators) Get(name string, options v1.GetOptions) (result *v1alpha1.PodTerminator, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.PodTerminator{}
 	err = c.client.Get().
 		Resource("podterminators").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of PodTerminators that match those selectors.
 func (c *podTerminators) List(opts v1.ListOptions) (result *v1alpha1.PodTerminatorList, err error) {
+	ctx := context.Background()
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -83,13 +86,14 @@ func (c *podTerminators) List(opts v1.ListOptions) (result *v1alpha1.PodTerminat
 		Resource("podterminators").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested podTerminators.
 func (c *podTerminators) Watch(opts v1.ListOptions) (watch.Interface, error) {
+	ctx := context.Background()
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -99,44 +103,48 @@ func (c *podTerminators) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("podterminators").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(ctx)
 }
 
 // Create takes the representation of a podTerminator and creates it.  Returns the server's representation of the podTerminator, and an error, if there is any.
 func (c *podTerminators) Create(podTerminator *v1alpha1.PodTerminator) (result *v1alpha1.PodTerminator, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.PodTerminator{}
 	err = c.client.Post().
 		Resource("podterminators").
 		Body(podTerminator).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Update takes the representation of a podTerminator and updates it. Returns the server's representation of the podTerminator, and an error, if there is any.
 func (c *podTerminators) Update(podTerminator *v1alpha1.PodTerminator) (result *v1alpha1.PodTerminator, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.PodTerminator{}
 	err = c.client.Put().
 		Resource("podterminators").
 		Name(podTerminator.Name).
 		Body(podTerminator).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Delete takes name of the podTerminator and deletes it. Returns an error if one occurs.
 func (c *podTerminators) Delete(name string, options *v1.DeleteOptions) error {
+	ctx := context.Background()
 	return c.client.Delete().
 		Resource("podterminators").
 		Name(name).
 		Body(options).
-		Do().
+		Do(ctx).
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *podTerminators) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	ctx := context.Background()
 	var timeout time.Duration
 	if listOptions.TimeoutSeconds != nil {
 		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
@@ -146,19 +154,20 @@ func (c *podTerminators) DeleteCollection(options *v1.DeleteOptions, listOptions
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do().
+		Do(ctx).
 		Error()
 }
 
 // Patch applies the patch and returns the patched podTerminator.
 func (c *podTerminators) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.PodTerminator, err error) {
+	ctx := context.Background()
 	result = &v1alpha1.PodTerminator{}
 	err = c.client.Patch(pt).
 		Resource("podterminators").
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }

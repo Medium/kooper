@@ -17,16 +17,16 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/util/homedir"
 
-	"github.com/spotahome/kooper/log"
-	"github.com/spotahome/kooper/operator/controller"
-	"github.com/spotahome/kooper/operator/handler"
-	"github.com/spotahome/kooper/operator/retrieve"
+	"github.com/Medium/kooper/log"
+	"github.com/Medium/kooper/operator/controller"
+	"github.com/Medium/kooper/operator/handler"
+	"github.com/Medium/kooper/operator/retrieve"
 )
 
 func main() {
 	// Initialize logger.
 	log := &log.Std{}
-
+	ctx := context.Background()
 	// Get k8s client.
 	k8scfg, err := rest.InClusterConfig()
 	if err != nil {
@@ -49,10 +49,10 @@ func main() {
 		Object: &corev1.Pod{},
 		ListerWatcher: &cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-				return k8scli.CoreV1().Pods("").List(options)
+				return k8scli.CoreV1().Pods("").List(ctx, options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
-				return k8scli.CoreV1().Pods("").Watch(options)
+				return k8scli.CoreV1().Pods("").Watch(ctx, options)
 			},
 		},
 	}
